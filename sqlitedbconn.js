@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 // sqlite3 database
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './sandbox.sqlite'
+    storage: './database.sqlite3',
+    sync: { force: false } // do not force sync, use migration instead
 });
 
 // check database connection
@@ -16,7 +17,7 @@ sequelize
     console.error('Unable to connect to the database: ', err);
 });
 
-// call sync() method
-sequelize.sync();
+// call sync() method first only to initialize table if not exists 
+// sequelize.sync();
 
 export default sequelize;

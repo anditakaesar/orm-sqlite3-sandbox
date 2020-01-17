@@ -1,27 +1,18 @@
 import express from 'express';
 import cors from 'cors';
-import User from './User/User';
+import { json, urlencoded } from 'body-parser';
+import helmet from 'helmet';
+import compression from 'compression';
 const app = express();
 
 require('./sqlitedbconn');
 
 // middlewares
 app.use(cors());
-
-app.use('/create-user', (req, res, next) => {
-    User.create({ firstName: "Andita", lastName: "Fahmi" })
-        .then(user => {
-            res.status(200).json({
-                message: `${user.id} generated`
-            });
-        })
-        .catch(err => {
-            res.status(500).json({
-                message: `Error`,
-                err
-            });
-        });
-});
+app.use(json());
+app.use(helmet());
+app.use(compression());
+app.use(urlencoded({ extended: true }));
 
 app.use('/user', require('./User/UserRouter').default);
 

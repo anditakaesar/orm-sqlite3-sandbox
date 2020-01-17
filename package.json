@@ -5,8 +5,11 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.3",
     "sqlite3": "^4.1.1"
@@ -15,11 +18,14 @@
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
     "@babel/node": "^7.8.3",
+    "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
     "babel-node": "^0.0.1-security",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1"
   },
   "scripts": {
-    "develop": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node index.js"
+    "develop": "npx nodemon --exec ./node_modules/.bin/babel-node index.js"
   }
 }
