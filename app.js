@@ -14,6 +14,7 @@ app.use(helmet());
 app.use(compression());
 app.use(urlencoded({ extended: true }));
 
-app.use('/user', require('./User/UserRouter').default);
+app.use('/user', require('./Routers/UserRouter').default);
+app.use('/card', require('./Routers/CardRouter').default);
 
 export default app;
