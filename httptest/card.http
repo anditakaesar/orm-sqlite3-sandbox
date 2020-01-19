@@ -6,7 +6,7 @@ GET {{url}}/card
 Content-Type: application/json
 
 ### get
-GET {{url}}/card/5
+GET {{url}}/card/20
 Content-Type: application/json
 
 ### CREATE
@@ -14,9 +14,23 @@ POST {{url}}/card
 Content-Type: application/json
 
 {
-    "nama": "Andita 2",
+    "nama": "Andita Again",
     "alamat": "Jalan Raya",
     "phones": ["0121234", "1203847"]
 }
+
+### UPDATE
+PATCH {{url}}/card/20
+Content-Type: application/json
+
+{
+    "nama": "Andita Test",
+    "alamat": "Jalan Raya",
+    "phones": ["01234120", "23452345"]
+}
+
+### DELETE
+DELETE  {{url}}/card/15
+Content-Type: application/json
 
 ###################################

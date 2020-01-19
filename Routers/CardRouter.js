@@ -25,17 +25,38 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/:id', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
     process.nextTick(() => {
-        Card.findAll({ where: {
+        Card.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(card => {
+            if (!card) console.log(`card row not found with id ${req.params.id}`);
+            
+            res.status(200).json({
+                message: `card deleted`
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: `Error`,
+                err 
+            });
+        });
+    });
+});
+
+function getCardById (req, res, next) {
+    process.nextTick(() => {
+        Card.findOne({ where: {
             id: req.params.id
         }, 
         include: [{ model: Phone, as: 'phones' }]})
         .then(card => {
-            res.status(200).json({
-                message: `retrieving card`,
-                card
-            });
+            res.card = card;
+            next();
         })
         .catch(err => {
             res.status(500).json({
@@ -43,9 +64,15 @@ router.get('/:id', (req, res, next) => {
                 err
             });
         });
-
     });
-})
+}
+
+router.get('/:id', getCardById, (req, res, next) => {
+    res.status(200).json({
+        message: `get card with id: ${req.params.id}`,
+        card: res.card
+    });
+});
 
 router.post('/', (req, res, next) => {
     process.nextTick(() => {
@@ -54,20 +81,8 @@ router.post('/', (req, res, next) => {
             alamat: req.body.alamat
         })
         .then(card => {
-
-            if (req.body.phones) {
-                req.body.phones.forEach(p => {
-                    Phone.create({
-                        CardId: card.id,
-                        telepon: p
-                    });
-                });
-            }
-
-            res.status(200).json({
-                message: `Created card: ${req.body.nama}`,
-                card: createdCard
-            });
+            res.card = card;
+            next();
         })
         .catch(err => {
             res.status(500).json({
@@ -75,6 +90,83 @@ router.post('/', (req, res, next) => {
                 err
             });
         });
+    });
+}, (req, res, next) => {
+    if (req.body.phones) {
+        req.body.phones.forEach(p => {
+            Phone.create({
+                CardId: res.card.id,
+                telepon: p
+            });
+        });
+    }
+    req.params.id = res.card.id;
+    next();
+}, getCardById, (req, res, next) => {
+    res.status(200).json({
+        message: `done creating card`,
+        card: res.card
+    });
+});
+
+router.patch('/:id', getCardById, (req, res, next) => {
+    const nama = req.body.nama ? req.body.nama : res.card.nama;
+    const alamat = req.body.alamat ? req.body.alamat : res.card.alamat;
+
+    process.nextTick(() => {
+        Card.update({
+                nama: nama, alamat: alamat
+            },
+            {
+                where: {
+                    id: res.card.id
+                }
+            }
+        )
+        .then(result => {
+            next();
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(200).json({
+                message: `error updating row`,
+                err
+            });
+        });
+    });
+}, (req, res, next) => {
+    // delete all phone with cardId
+    process.nextTick(() => {
+        Phone.destroy({
+            where: {
+                CardId: res.card.id
+            }
+        })
+        .then(phones => {
+            next();
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: `Error`,
+                err 
+            });
+        });
+    });
+}, (req, res, next) => {
+    if (req.body.phones) {
+        req.body.phones.forEach(p => {
+            Phone.create({
+                CardId: res.card.id,
+                telepon: p
+            });
+        });
+    }
+    req.params.id = res.card.id;
+    next();
+}, getCardById, (req, res, next) => {
+    res.status(200).json({
+        message: `done updating card`,
+        card: res.card
     });
 });
 
