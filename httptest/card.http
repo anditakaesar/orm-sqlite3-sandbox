@@ -1,0 +1,22 @@
+### variables
+@url = http://localhost:3002
+
+### GET
+GET {{url}}/card
+Content-Type: application/json
+
+### get
+GET {{url}}/card/5
+Content-Type: application/json
+
+### CREATE
+POST {{url}}/card
+Content-Type: application/json
+
+{
+    "nama": "Andita 2",
+    "alamat": "Jalan Raya",
+    "phones": ["0121234", "1203847"]
+}
+
+###################################
