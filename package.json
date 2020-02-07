@@ -31,6 +31,6 @@
   "scripts": {
     "develop": "npx nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
     "build": "npx gulp",
-    "start": "npx gulp & npx nodemon ./build/index.js"
+    "start": "yarn build && npx nodemon ./build/index.js"
   }
 }

@@ -55,8 +55,14 @@ function getCardById (req, res, next) {
         }, 
         include: [{ model: Phone, as: 'phones' }]})
         .then(card => {
-            res.card = card;
-            next();
+            if (!card) {
+                res.status(404).json({
+                    message: `card not found with id: ${req.params.id}`
+                });
+            } else {
+                res.card = card;
+                next();
+            }
         })
         .catch(err => {
             res.status(500).json({
