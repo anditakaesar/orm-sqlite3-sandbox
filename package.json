@@ -22,10 +22,15 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/register": "^7.8.3",
     "babel-node": "^0.0.1-security",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "nodemon": "^2.0.2",
     "sequelize-cli": "^5.5.1"
   },
   "scripts": {
-    "develop": "npx nodemon --exec ./node_modules/.bin/babel-node index.js"
+    "develop": "npx nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
+    "build": "npx gulp",
+    "start": "npx gulp & npx nodemon ./build/index.js"
   }
 }
