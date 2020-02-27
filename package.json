@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./build/index.js",
   "license": "MIT",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -31,6 +31,7 @@
   "scripts": {
     "develop": "npx nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
     "build": "npx gulp",
-    "start": "yarn build && npx nodemon ./build/index.js"
+    "start:dev": "yarn build && npx nodemon ./build/index.js",
+    "start": "node ./build/index.js"
   }
 }

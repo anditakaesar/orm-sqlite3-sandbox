@@ -57,7 +57,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     process.nextTick(() => {
-        Card.findByPk(parseInt(req.params.id))
+        User.findByPk(parseInt(req.params.id))
         .then(user => {
             if (user) {
                 res.status(200).json({
