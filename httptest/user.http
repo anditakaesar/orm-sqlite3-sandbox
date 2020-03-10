@@ -1,5 +1,6 @@
 ### variables
-@url = http://localhost:3002
+@url1 = http://localhost:3002
+@url = https://app2.anditakaesar.com
 
 ### GET
 GET {{url}}/user
@@ -25,7 +26,7 @@ PATCH {{url}}/user/19
 Content-Type: application/json
 
 {
-    "firstname": "Andita Hehe",
+    "firstname": "Test user",
     "active": false
 }
 

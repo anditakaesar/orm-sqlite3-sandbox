@@ -1,12 +1,13 @@
 ### variables
-@url = http://localhost:3002
+@url1 = http://localhost:3002
+@url = https://app2.anditakaesar.com
 
 ### GET
 GET {{url}}/card
 Content-Type: application/json
 
 ### get
-GET {{url}}/card/20
+GET {{url}}/card/1
 Content-Type: application/json
 
 ### CREATE
@@ -30,7 +31,7 @@ Content-Type: application/json
 }
 
 ### DELETE
-DELETE  {{url}}/card/15
+DELETE  {{url}}/card/33
 Content-Type: application/json
 
 ###################################

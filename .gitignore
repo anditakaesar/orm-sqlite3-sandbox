@@ -105,3 +105,7 @@ dist
 sandbox.sqlite
 build/
 *.http
+
+# httptest
+httptest/
+*.http
